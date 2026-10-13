@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Reporteo - Dirección de Adulto Mayor</title>
+  <!-- Google Fonts: Montserrat para una tipografía institucional limpia -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Variables de Paleta Institucional DIF Jalisco */
+    :root {
+      --azul-marino: #002B49;
+      --azul-marino-hover: #001f35;
+      --azul-cielo: #00A3E0;
+      --blanco: #FFFFFF;
+      --gris-fondo: #F4F6F9;
+      --gris-texto: #333333;
+      --sombra: 0 8px 24px rgba(0, 43, 73, 0.12);
+      --sombra-hover: 0 12px 28px rgba(0, 43, 73, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      background-color: var(--gris-fondo);
+      color: var(--gris-texto);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header Institucional */
+    header {
+      background-color: var(--blanco);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    header img.logo-dif {
+      height: 65px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    /* Contenedor Principal */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 3rem 1.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .titulo-seccion {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .titulo-seccion h1 {
+      color: var(--azul-marino);
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .titulo-seccion p {
+      color: var(--azul-cielo);
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    /* Menú Principal de Centros */
+    .menu-centros {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      width: 100%;
+      max-width: 650px;
+    }
+
+    .btn-centro {
+      background-color: var(--azul-marino);
+      color: var(--blanco);
+      border: 2px solid var(--azul-marino);
+      border-radius: 12px;
+      padding: 1.2rem 1.8rem;
+      font-size: 1.05rem;
+      font-weight: 600;
+      text-decoration: none;
+      text-align: center;
+      line-height: 1.4;
+      cursor: pointer;
+      box-shadow: var(--sombra);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-centro:hover {
+      background-color: var(--azul-marino-hover);
+      border-color: var(--azul-cielo);
+      transform: translateY(-3px);
+      box-shadow: var(--sombra-hover);
+    }
+
+    .btn-centro:active {
+      transform: translateY(0);
+    }
+
+    /* Footer Institucional */
+    footer {
+      background-color: var(--azul-marino);
+      color: var(--blanco);
+      text-align: center;
+      padding: 1.2rem;
+      font-size: 0.85rem;
+      margin-top: auto;
+      border-top: 4px solid var(--azul-cielo);
+    }
+
+    /* Adaptabilidad Móvil */
+    @media (max-width: 600px) {
+      header img.logo-dif {
+        height: 50px;
+      }
+
+      .titulo-seccion h1 {
+        font-size: 1.5rem;
+      }
+
+      .titulo-seccion p {
+        font-size: 0.95rem;
+      }
+
+      .btn-centro {
+        font-size: 0.95rem;
+        padding: 1rem 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Encabezado con Logotipo Oficial colocado fijamente a la derecha -->
+  <header>
+    <img src="logo dif jalisco.jpg" alt="Sistema DIF Jalisco" class="logo-dif">
+  </header>
+
+  <!-- Contenido Principal (Index) -->
+  <main>
+    <div class="titulo-seccion">
+      <h1>Sistema de Reporteo - Dirección de Adulto Mayor</h1>
+      <p>Seleccione el centro para acceder al módulo de gestión</p>
+    </div>
+
+    <!-- Menú Principal: 5 botones centrados con los nombres y saltos de línea exactos -->
+    <nav class="menu-centros">
+      
+      <a href="centro.html?centro=capam" class="btn-centro">
+        CAPAM<br>(Centro de Atención para Personas Adultas Mayores)
+      </a>
+
+      <a href="centro.html?centro=eduardo-montano" class="btn-centro">
+        Centro de Día Eduardo Montaño Sahagún
+      </a>
+
+      <a href="centro.html?centro=uni3" class="btn-centro">
+        UNI3<br>(Universidad Abierta No Formal para Adultos Mayores)
+      </a>
+
+      <a href="centro.html?centro=leonidas-demos" class="btn-centro">
+        Asilo Leónidas K. Demos
+      </a>
+
+      <a href="centro.html?centro=casa-hogar-mujeres" class="btn-centro">
+        Casa Hogar para Mujeres<br>(María Concepción Jiménez de Medina Ascencio)
+      </a>
+
+    </nav>
+  </main>
+
+  <!-- Pie de página -->
+  <footer>
+    <p>Sistema DIF Jalisco &copy; Dirección de Adulto Mayor | Plataforma Interna de Reporteo</p>
+  </footer>
+
+</body>
+</html>
