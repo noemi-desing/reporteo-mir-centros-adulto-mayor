@@ -3,24 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Módulo de Centro - Sistema de Reporteo DAM</title>
+  <title>Sistema de Reporteo - Dirección de Adulto Mayor</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+  
   <style>
     :root {
       --azul-marino: #002B49;
+      --azul-marino-hover: #001f35;
       --azul-cielo: #00A3E0;
       --naranja-dif: #E85E26;
       --naranja-dif-hover: #D04E1B;
       --blanco: #FFFFFF;
       --gris-fondo: #EAEFF2;
-      --gris-tarjeta: #FFFFFF;
       --gris-texto: #2C3E50;
-      --verde-exito: #27AE60;
-      --rojo-alerta: #C0392B;
       --sombra: 0 6px 18px rgba(0, 0, 0, 0.08);
+      --sombra-hover: 0 10px 24px rgba(232, 94, 38, 0.25);
     }
 
     * {
@@ -51,33 +50,109 @@
     }
 
     header img.logo-dif {
-      height: 60px;
+      height: 65px;
       width: auto;
+      object-fit: contain;
+    }
+
+    .btn-volver-container {
+      display: none;
     }
 
     .btn-volver {
       background-color: var(--azul-marino);
       color: var(--blanco);
-      text-decoration: none;
+      border: none;
       padding: 0.6rem 1.2rem;
       border-radius: 6px;
       font-size: 0.9rem;
       font-weight: 600;
+      cursor: pointer;
       transition: background 0.3s ease;
     }
 
     .btn-volver:hover {
-      background-color: #001f35;
+      background-color: var(--azul-marino-hover);
     }
 
     main {
       flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2.5rem 1.5rem;
       max-width: 900px;
-      margin: 2rem auto;
-      padding: 0 1.5rem;
+      margin: 0 auto;
       width: 100%;
     }
 
+    /* Vistas */
+    .vista {
+      width: 100%;
+      display: none;
+    }
+
+    .vista.activa {
+      display: block;
+    }
+
+    /* Estilos Pantalla Principal */
+    .titulo-seccion {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .titulo-seccion h1 {
+      color: var(--azul-marino);
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .titulo-seccion p {
+      color: var(--azul-cielo);
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .menu-centros {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      width: 100%;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    .btn-centro {
+      background-color: var(--naranja-dif);
+      color: var(--blanco);
+      border: none;
+      border-radius: 10px;
+      padding: 1.2rem 1.8rem;
+      font-size: 1.05rem;
+      font-weight: 700;
+      text-align: center;
+      line-height: 1.4;
+      cursor: pointer;
+      box-shadow: var(--sombra);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .btn-centro:hover {
+      background-color: var(--naranja-dif-hover);
+      transform: translateY(-3px);
+      box-shadow: var(--sombra-hover);
+    }
+
+    /* Estilos Vista de Módulo de Centro */
     .header-modulo {
       text-align: center;
       margin-bottom: 2rem;
@@ -143,7 +218,6 @@
       line-height: 1.4;
     }
 
-    /* Estilos Bloque de Carga */
     .dropzone {
       border: 2px dashed var(--azul-cielo);
       border-radius: 8px;
@@ -196,7 +270,6 @@
       display: none;
     }
 
-    /* Estilos Bloque de Descarga */
     .lista-descargas {
       display: flex;
       flex-direction: column;
@@ -220,7 +293,7 @@
     }
 
     .btn-descarga:hover {
-      background-color: #001f35;
+      background-color: var(--azul-marino-hover);
     }
 
     footer {
@@ -237,68 +310,106 @@
       .grid-modulos {
         grid-template-columns: 1fr;
       }
+      .titulo-seccion h1 {
+        font-size: 1.4rem;
+      }
     }
   </style>
 </head>
 <body>
 
   <header>
-    <a href="index.html" class="btn-volver">&larr; Volver al Menú</a>
+    <div id="contenedor-volver" class="btn-volver-container">
+      <button class="btn-volver" onclick="irAlHome()">&larr; Volver al Menú</button>
+    </div>
     <img src="logo dif jalisco.jpg" alt="Sistema DIF Jalisco" class="logo-dif">
   </header>
 
   <main>
-    <div class="header-modulo">
-      <h1 id="nombre-centro">Cargando Centro...</h1>
-      <p>Módulo de Gestión de Reportes Mensuales</p>
+    <!-- VISTA 1: HOME (Menú Principal con 5 botones) -->
+    <div id="vista-home" class="vista activa">
+      <div class="titulo-seccion">
+        <h1>Sistema de Reporteo - Dirección de Adulto Mayor</h1>
+        <p>Seleccione el centro para acceder al módulo de gestión</p>
+      </div>
+
+      <nav class="menu-centros">
+        <button class="btn-centro" onclick="abrirCentro('capam')">
+          CAPAM<br>(Centro de Atención para Personas Adultas Mayores)
+        </button>
+
+        <button class="btn-centro" onclick="abrirCentro('eduardo-montano')">
+          Centro de Día Eduardo Montaño Sahagún
+        </button>
+
+        <button class="btn-centro" onclick="abrirCentro('uni3')">
+          UNI3<br>(Universidad Abierta No Formal para Adultos Mayores)
+        </button>
+
+        <button class="btn-centro" onclick="abrirCentro('leonidas-demos')">
+          Asilo Leónidas K. Demos
+        </button>
+
+        <button class="btn-centro" onclick="abrirCentro('casa-hogar-mujeres')">
+          Casa Hogar para Mujeres<br>(María Concepción Jiménez de Medina Ascencio)
+        </button>
+      </nav>
     </div>
 
-    <div class="grid-modulos">
-      
-      <!-- Bloque 1: Carga (Rol Enlace) -->
-      <section class="tarjeta">
-        <h2>
-          📤 Carga de Datos
-          <span class="rol-badge">Enlace</span>
-        </h2>
-        <p class="descripcion">Suba la plantilla <strong>PUB SISTEMA.xlsx</strong> de este mes. Una vez subida, los datos quedarán congelados para edición.</p>
+    <!-- VISTA 2: MÓDULO DE CENTRO (Carga y Descargas) -->
+    <div id="vista-centro" class="vista">
+      <div class="header-modulo">
+        <h1 id="nombre-centro">Nombre del Centro</h1>
+        <p>Módulo de Gestión de Reportes Mensuales</p>
+      </div>
+
+      <div class="grid-modulos">
         
-        <form id="form-carga">
-          <div class="dropzone" id="dropzone">
-            <label for="input-pub">📁 Seleccionar archivo<br><small style="font-weight: normal; color: #777;">(PUB SISTEMA.xlsx)</small></label>
-            <input type="file" id="input-pub" accept=".xlsx, .xls">
-            <div id="nombre-archivo-seleccionado" style="margin-top: 0.5rem; font-size: 0.85rem; font-weight: 700; color: var(--azul-marino);"></div>
+        <!-- Bloque 1: Carga (Rol Enlace) -->
+        <section class="tarjeta">
+          <h2>
+            📤 Carga de Datos
+            <span class="rol-badge">Enlace</span>
+          </h2>
+          <p class="descripcion">Suba la plantilla <strong>PUB SISTEMA.xlsx</strong> de este mes. Una vez subida, los datos quedarán congelados para edición.</p>
+          
+          <form id="form-carga">
+            <div class="dropzone">
+              <label for="input-pub">📁 Seleccionar archivo<br><small style="font-weight: normal; color: #777;">(PUB SISTEMA.xlsx)</small></label>
+              <input type="file" id="input-pub" accept=".xlsx, .xls">
+              <div id="nombre-archivo-seleccionado" style="margin-top: 0.5rem; font-size: 0.85rem; font-weight: 700; color: var(--azul-marino);"></div>
+            </div>
+
+            <button type="button" class="btn-accion" id="btn-subir" onclick="simularCarga()">Cargar Archivo PUB</button>
+          </form>
+
+          <div class="alerta-congelado" id="alerta-congelado">
+            🔒 <strong>Información Congelada:</strong> El archivo ha sido recibido y bloqueado. No se permiten modificaciones adicionales este mes.
           </div>
+        </section>
 
-          <button type="button" class="btn-accion" id="btn-subir" onclick="simularCarga()">Cargar Archivo PUB</button>
-        </form>
+        <!-- Bloque 2: Descarga (Rol Administrador) -->
+        <section class="tarjeta">
+          <h2>
+            📥 Descargas
+            <span class="rol-badge" style="background-color: var(--azul-marino);">Admin</span>
+          </h2>
+          <p class="descripcion">Acceda y descargue el archivo cargado por el enlace o el reporte procesado de transparencia.</p>
 
-        <div class="alerta-congelado" id="alerta-congelado">
-          🔒 <strong>Información Congelada:</strong> El archivo ha sido recibido y bloqueado. No se permiten modificaciones adicionales este mes.
-        </div>
-      </section>
+          <div class="lista-descargas">
+            <a href="PUB SISTEMA.xlsx" download="PUB SISTEMA.xlsx" class="btn-descarga">
+              <span>📄 Descargar PUB Recibido</span>
+              <small>(PUB SISTEMA.xlsx)</small>
+            </a>
 
-      <!-- Bloque 2: Descarga (Rol Administrador) -->
-      <section class="tarjeta">
-        <h2>
-          📥 Descargas
-          <span class="rol-badge" style="background-color: var(--azul-marino);">Admin</span>
-        </h2>
-        <p class="descripcion">Acceda y descargue el archivo cargado por el enlace o el reporte procesado de transparencia.</p>
+            <a href="reporte transparencia.xlsx" download="reporte transparencia.xlsx" class="btn-descarga" style="background-color: var(--naranja-dif);">
+              <span>📊 Descargar Reporte Generado</span>
+              <small>(reporte transparencia.xlsx)</small>
+            </a>
+          </div>
+        </section>
 
-        <div class="lista-descargas">
-          <a href="PUB SISTEMA.xlsx" download="PUB SISTEMA.xlsx" class="btn-descarga">
-            <span>📄 Descargar PUB Recibido</span>
-            <small>(PUB SISTEMA.xlsx)</small>
-          </a>
-
-          <a href="reporte transparencia.xlsx" download="reporte transparencia.xlsx" class="btn-descarga" style="background-color: var(--naranja-dif);">
-            <span>📊 Descargar Reporte Generado</span>
-            <small>(reporte transparencia.xlsx)</small>
-          </a>
-        </div>
-      </section>
-
+      </div>
     </div>
   </main>
 
@@ -307,7 +418,6 @@
   </footer>
 
   <script>
-    // Identificar qué centro fue seleccionado mediante la URL
     const centrosNombres = {
       'capam': 'CAPAM (Centro de Atención para Personas Adultas Mayores)',
       'eduardo-montano': 'Centro de Día Eduardo Montaño Sahagún',
@@ -316,17 +426,24 @@
       'casa-hogar-mujeres': 'Casa Hogar para Mujeres (María Concepción Jiménez de Medina Ascencio)'
     };
 
-    const params = new URLSearchParams(window.location.search);
-    const centroKey = params.get('centro');
-    const tituloElemento = document.getElementById('nombre-centro');
+    function abrirCentro(centroKey) {
+      const tituloElemento = document.getElementById('nombre-centro');
+      tituloElemento.textContent = centrosNombres[centroKey] || 'Módulo de Gestión de Centro';
 
-    if (centroKey && centrosNombres[centroKey]) {
-      tituloElemento.textContent = centrosNombres[centroKey];
-    } else {
-      tituloElemento.textContent = 'Módulo de Gestión de Centro';
+      // Cambiar de vista
+      document.getElementById('vista-home').classList.remove('activa');
+      document.getElementById('vista-centro').classList.add('activa');
+      document.getElementById('contenedor-volver').style.display = 'block';
+      window.scrollTo(0, 0);
     }
 
-    // Mostrar el nombre del archivo seleccionado
+    function irAlHome() {
+      document.getElementById('vista-centro').classList.remove('activa');
+      document.getElementById('vista-home').classList.add('activa');
+      document.getElementById('contenedor-volver').style.display = 'none';
+      window.scrollTo(0, 0);
+    }
+
     const inputPub = document.getElementById('input-pub');
     const labelArchivo = document.getElementById('nombre-archivo-seleccionado');
 
@@ -336,7 +453,6 @@
       }
     });
 
-    // Simulación de regla de negocio: Congelar información tras subir
     function simularCarga() {
       if (!inputPub.files || inputPub.files.length === 0) {
         alert('Por favor seleccione el archivo PUB SISTEMA.xlsx antes de cargar.');
