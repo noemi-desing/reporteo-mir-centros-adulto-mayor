@@ -3,23 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sistema de Reporteo - Dirección de Adulto Mayor</title>
-  <!-- Google Fonts: Montserrat para una tipografía institucional limpia -->
+  <title>Módulo de Centro - Sistema de Reporteo DAM</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
+
   <style>
-    /* Variables de Paleta Institucional DIF Jalisco */
     :root {
       --azul-marino: #002B49;
-      --azul-marino-hover: #001f35;
       --azul-cielo: #00A3E0;
+      --naranja-dif: #E85E26;
+      --naranja-dif-hover: #D04E1B;
       --blanco: #FFFFFF;
-      --gris-fondo: #F4F6F9;
-      --gris-texto: #333333;
-      --sombra: 0 8px 24px rgba(0, 43, 73, 0.12);
-      --sombra-hover: 0 12px 28px rgba(0, 43, 73, 0.2);
+      --gris-fondo: #EAEFF2;
+      --gris-tarjeta: #FFFFFF;
+      --gris-texto: #2C3E50;
+      --verde-exito: #27AE60;
+      --rojo-alerta: #C0392B;
+      --sombra: 0 6px 18px rgba(0, 0, 0, 0.08);
     }
 
     * {
@@ -37,13 +38,12 @@
       flex-direction: column;
     }
 
-    /* Header Institucional */
     header {
       background-color: var(--blanco);
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
       padding: 1rem 2rem;
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
       align-items: center;
       position: sticky;
       top: 0;
@@ -51,84 +51,178 @@
     }
 
     header img.logo-dif {
-      height: 65px;
+      height: 60px;
       width: auto;
-      object-fit: contain;
     }
 
-    /* Contenedor Principal */
-    main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 3rem 1.5rem;
-      max-width: 900px;
-      margin: 0 auto;
-      width: 100%;
-    }
-
-    .titulo-seccion {
-      text-align: center;
-      margin-bottom: 2.5rem;
-    }
-
-    .titulo-seccion h1 {
-      color: var(--azul-marino);
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .titulo-seccion p {
-      color: var(--azul-cielo);
-      font-size: 1.1rem;
-      font-weight: 600;
-    }
-
-    /* Menú Principal de Centros */
-    .menu-centros {
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-      width: 100%;
-      max-width: 650px;
-    }
-
-    .btn-centro {
+    .btn-volver {
       background-color: var(--azul-marino);
       color: var(--blanco);
-      border: 2px solid var(--azul-marino);
-      border-radius: 12px;
-      padding: 1.2rem 1.8rem;
-      font-size: 1.05rem;
-      font-weight: 600;
       text-decoration: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+
+    .btn-volver:hover {
+      background-color: #001f35;
+    }
+
+    main {
+      flex: 1;
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+      width: 100%;
+    }
+
+    .header-modulo {
       text-align: center;
-      line-height: 1.4;
-      cursor: pointer;
+      margin-bottom: 2rem;
+      background: var(--blanco);
+      padding: 1.5rem;
+      border-radius: 10px;
       box-shadow: var(--sombra);
-      transition: all 0.3s ease;
+      border-top: 5px solid var(--naranja-dif);
+    }
+
+    .header-modulo h1 {
+      color: var(--azul-marino);
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+
+    .header-modulo p {
+      color: var(--azul-cielo);
+      font-size: 1rem;
+      font-weight: 600;
+      margin-top: 0.3rem;
+    }
+
+    .grid-modulos {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .tarjeta {
+      background-color: var(--blanco);
+      border-radius: 12px;
+      padding: 1.8rem;
+      box-shadow: var(--sombra);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .tarjeta h2 {
+      color: var(--azul-marino);
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
       display: flex;
       align-items: center;
-      justify-content: center;
+      gap: 0.5rem;
     }
 
-    .btn-centro:hover {
-      background-color: var(--azul-marino-hover);
-      border-color: var(--azul-cielo);
-      transform: translateY(-3px);
-      box-shadow: var(--sombra-hover);
+    .tarjeta .rol-badge {
+      font-size: 0.75rem;
+      background-color: var(--azul-cielo);
+      color: var(--blanco);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-left: auto;
     }
 
-    .btn-centro:active {
-      transform: translateY(0);
+    .tarjeta p.descripcion {
+      font-size: 0.88rem;
+      color: #666;
+      margin-bottom: 1.5rem;
+      line-height: 1.4;
     }
 
-    /* Footer Institucional */
+    /* Estilos Bloque de Carga */
+    .dropzone {
+      border: 2px dashed var(--azul-cielo);
+      border-radius: 8px;
+      padding: 1.5rem;
+      text-align: center;
+      background-color: #F8FCFF;
+      margin-bottom: 1rem;
+      cursor: pointer;
+    }
+
+    .dropzone input[type="file"] {
+      display: none;
+    }
+
+    .dropzone label {
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--azul-marino);
+      display: block;
+    }
+
+    .btn-accion {
+      background-color: var(--naranja-dif);
+      color: var(--blanco);
+      border: none;
+      padding: 0.9rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .btn-accion:hover {
+      background-color: var(--naranja-dif-hover);
+    }
+
+    .alerta-congelado {
+      background-color: #FFF3CD;
+      border: 1px solid #FFEEBA;
+      color: #856404;
+      padding: 0.8rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      margin-top: 1rem;
+      display: none;
+    }
+
+    /* Estilos Bloque de Descarga */
+    .lista-descargas {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: auto;
+    }
+
+    .btn-descarga {
+      background-color: var(--azul-marino);
+      color: var(--blanco);
+      border: none;
+      padding: 0.9rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.3s ease;
+    }
+
+    .btn-descarga:hover {
+      background-color: #001f35;
+    }
+
     footer {
       background-color: var(--azul-marino);
       color: var(--blanco);
@@ -136,74 +230,133 @@
       padding: 1.2rem;
       font-size: 0.85rem;
       margin-top: auto;
-      border-top: 4px solid var(--azul-cielo);
+      border-top: 4px solid var(--naranja-dif);
     }
 
-    /* Adaptabilidad Móvil */
-    @media (max-width: 600px) {
-      header img.logo-dif {
-        height: 50px;
-      }
-
-      .titulo-seccion h1 {
-        font-size: 1.5rem;
-      }
-
-      .titulo-seccion p {
-        font-size: 0.95rem;
-      }
-
-      .btn-centro {
-        font-size: 0.95rem;
-        padding: 1rem 1.2rem;
+    @media (max-width: 768px) {
+      .grid-modulos {
+        grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Encabezado con Logotipo Oficial colocado fijamente a la derecha -->
   <header>
+    <a href="index.html" class="btn-volver">&larr; Volver al Menú</a>
     <img src="logo dif jalisco.jpg" alt="Sistema DIF Jalisco" class="logo-dif">
   </header>
 
-  <!-- Contenido Principal (Index) -->
   <main>
-    <div class="titulo-seccion">
-      <h1>Sistema de Reporteo - Dirección de Adulto Mayor</h1>
-      <p>Seleccione el centro para acceder al módulo de gestión</p>
+    <div class="header-modulo">
+      <h1 id="nombre-centro">Cargando Centro...</h1>
+      <p>Módulo de Gestión de Reportes Mensuales</p>
     </div>
 
-    <!-- Menú Principal: 5 botones centrados con los nombres y saltos de línea exactos -->
-    <nav class="menu-centros">
+    <div class="grid-modulos">
       
-      <a href="centro.html?centro=capam" class="btn-centro">
-        CAPAM<br>(Centro de Atención para Personas Adultas Mayores)
-      </a>
+      <!-- Bloque 1: Carga (Rol Enlace) -->
+      <section class="tarjeta">
+        <h2>
+          📤 Carga de Datos
+          <span class="rol-badge">Enlace</span>
+        </h2>
+        <p class="descripcion">Suba la plantilla <strong>PUB SISTEMA.xlsx</strong> de este mes. Una vez subida, los datos quedarán congelados para edición.</p>
+        
+        <form id="form-carga">
+          <div class="dropzone" id="dropzone">
+            <label for="input-pub">📁 Seleccionar archivo<br><small style="font-weight: normal; color: #777;">(PUB SISTEMA.xlsx)</small></label>
+            <input type="file" id="input-pub" accept=".xlsx, .xls">
+            <div id="nombre-archivo-seleccionado" style="margin-top: 0.5rem; font-size: 0.85rem; font-weight: 700; color: var(--azul-marino);"></div>
+          </div>
 
-      <a href="centro.html?centro=eduardo-montano" class="btn-centro">
-        Centro de Día Eduardo Montaño Sahagún
-      </a>
+          <button type="button" class="btn-accion" id="btn-subir" onclick="simularCarga()">Cargar Archivo PUB</button>
+        </form>
 
-      <a href="centro.html?centro=uni3" class="btn-centro">
-        UNI3<br>(Universidad Abierta No Formal para Adultos Mayores)
-      </a>
+        <div class="alerta-congelado" id="alerta-congelado">
+          🔒 <strong>Información Congelada:</strong> El archivo ha sido recibido y bloqueado. No se permiten modificaciones adicionales este mes.
+        </div>
+      </section>
 
-      <a href="centro.html?centro=leonidas-demos" class="btn-centro">
-        Asilo Leónidas K. Demos
-      </a>
+      <!-- Bloque 2: Descarga (Rol Administrador) -->
+      <section class="tarjeta">
+        <h2>
+          📥 Descargas
+          <span class="rol-badge" style="background-color: var(--azul-marino);">Admin</span>
+        </h2>
+        <p class="descripcion">Acceda y descargue el archivo cargado por el enlace o el reporte procesado de transparencia.</p>
 
-      <a href="centro.html?centro=casa-hogar-mujeres" class="btn-centro">
-        Casa Hogar para Mujeres<br>(María Concepción Jiménez de Medina Ascencio)
-      </a>
+        <div class="lista-descargas">
+          <a href="PUB SISTEMA.xlsx" download="PUB SISTEMA.xlsx" class="btn-descarga">
+            <span>📄 Descargar PUB Recibido</span>
+            <small>(PUB SISTEMA.xlsx)</small>
+          </a>
 
-    </nav>
+          <a href="reporte transparencia.xlsx" download="reporte transparencia.xlsx" class="btn-descarga" style="background-color: var(--naranja-dif);">
+            <span>📊 Descargar Reporte Generado</span>
+            <small>(reporte transparencia.xlsx)</small>
+          </a>
+        </div>
+      </section>
+
+    </div>
   </main>
 
-  <!-- Pie de página -->
   <footer>
     <p>Sistema DIF Jalisco &copy; Dirección de Adulto Mayor | Plataforma Interna de Reporteo</p>
   </footer>
+
+  <script>
+    // Identificar qué centro fue seleccionado mediante la URL
+    const centrosNombres = {
+      'capam': 'CAPAM (Centro de Atención para Personas Adultas Mayores)',
+      'eduardo-montano': 'Centro de Día Eduardo Montaño Sahagún',
+      'uni3': 'UNI3 (Universidad Abierta No Formal para Adultos Mayores)',
+      'leonidas-demos': 'Asilo Leónidas K. Demos',
+      'casa-hogar-mujeres': 'Casa Hogar para Mujeres (María Concepción Jiménez de Medina Ascencio)'
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const centroKey = params.get('centro');
+    const tituloElemento = document.getElementById('nombre-centro');
+
+    if (centroKey && centrosNombres[centroKey]) {
+      tituloElemento.textContent = centrosNombres[centroKey];
+    } else {
+      tituloElemento.textContent = 'Módulo de Gestión de Centro';
+    }
+
+    // Mostrar el nombre del archivo seleccionado
+    const inputPub = document.getElementById('input-pub');
+    const labelArchivo = document.getElementById('nombre-archivo-seleccionado');
+
+    inputPub.addEventListener('change', function() {
+      if (this.files && this.files[0]) {
+        labelArchivo.textContent = 'Archivo seleccionado: ' + this.files[0].name;
+      }
+    });
+
+    // Simulación de regla de negocio: Congelar información tras subir
+    function simularCarga() {
+      if (!inputPub.files || inputPub.files.length === 0) {
+        alert('Por favor seleccione el archivo PUB SISTEMA.xlsx antes de cargar.');
+        return;
+      }
+
+      const input = document.getElementById('input-pub');
+      const btn = document.getElementById('btn-subir');
+      const alerta = document.getElementById('alerta-congelado');
+
+      input.disabled = true;
+      btn.disabled = true;
+      btn.style.backgroundColor = '#888';
+      btn.style.cursor = 'not-allowed';
+      btn.textContent = '✓ Archivo Guardado y Congelado';
+
+      alerta.style.display = 'block';
+      alert('¡Archivo cargado con éxito! La información para este centro ha quedado congelada.');
+    }
+  </script>
 
 </body>
 </html>
